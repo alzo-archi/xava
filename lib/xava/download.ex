@@ -116,7 +116,7 @@ defmodule Xava.Download do
         Xava.Utils.get_pubkey(platform, version)
       )
 
-    :ok = untar_distribuable(distribuable_path)
+    {:ok, java_home} = untar_distribuable(distribuable_path)
   end
 
   def download_maven(version, path \\ nil) do

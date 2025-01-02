@@ -22,4 +22,21 @@ defmodule Xava.Utils do
   def get_pubkey(platform, version) when correct_vsn(platform, version) do
     Keys.get_pubkey(version)
   end
+
+  def get_platform_bins_path(arch) when arch in @archs do
+    a = "#{arch}"
+
+    cond do
+      String.contains?(a, "linux") -> "bin"
+      String.contains?(a, "mac") -> "Contents/Home/bin"
+    end
+  end
+
+  def get_java_binary(arch, java_dir) do
+    Path.join(java_dir, get_platform_bins_path(arch)) <> "/java"
+  end
+
+  def get_javac_binary(arch, java_dir) do
+    Path.join(java_dir, get_platform_bins_path(arch)) <> "/javac"
+  end
 end
